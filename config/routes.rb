@@ -1,4 +1,10 @@
 Innovoxppc::Application.routes.draw do
+  resources :product_attribute_types
+
+
+  resources :product_attributes
+
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
