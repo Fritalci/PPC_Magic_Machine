@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product_attribute_type_variation_id: 1
+  value: MyString
+
+two:
+  product_attribute_type_variation_id: 1
+  value: MyString

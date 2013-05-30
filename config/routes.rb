@@ -1,4 +1,10 @@
 Innovoxppc::Application.routes.draw do
+  resources :product_attribute_type_variation_values
+
+
+  resources :product_attribute_type_variations
+
+
   resources :product_attribute_types
 
 

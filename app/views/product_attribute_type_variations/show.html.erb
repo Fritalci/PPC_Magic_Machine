@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Product attribute type:</b>
+  <%= @product_attribute_type_variation.product_attribute_type_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @product_attribute_type_variation.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_attribute_type_variation_path(@product_attribute_type_variation) %> |
+<%= link_to 'Back', product_attribute_type_variations_path %>

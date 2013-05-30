@@ -1,0 +1,2 @@
+class ProductAttributeTypeVariationValuesController < InheritedResources::Base
+end

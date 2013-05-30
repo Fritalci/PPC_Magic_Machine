@@ -1,0 +1,25 @@
+<h1>Listing product_attribute_type_variation_values</h1>
+
+<table>
+  <tr>
+    <th>Product attribute type variation</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @product_attribute_type_variation_values.each do |product_attribute_type_variation_value| %>
+  <tr>
+    <td><%= product_attribute_type_variation_value.product_attribute_type_variation_id %></td>
+    <td><%= product_attribute_type_variation_value.value %></td>
+    <td><%= link_to 'Show', product_attribute_type_variation_value %></td>
+    <td><%= link_to 'Edit', edit_product_attribute_type_variation_value_path(product_attribute_type_variation_value) %></td>
+    <td><%= link_to 'Destroy', product_attribute_type_variation_value, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Product attribute type variation value', new_product_attribute_type_variation_value_path %>

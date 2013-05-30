@@ -1,0 +1,2 @@
+module ProductAttributeTypeVariationsHelper
+end
