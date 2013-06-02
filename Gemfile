@@ -24,6 +24,8 @@ gem 'jquery-rails'
 
 gem 'activeadmin'
 
+gem "spreadsheet", "~> 0.8.5"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
