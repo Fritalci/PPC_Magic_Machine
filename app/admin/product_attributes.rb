@@ -11,4 +11,16 @@ ActiveAdmin.register ProductAttribute do
 		default_actions
 	end
 
+  form do |f|
+    f.inputs "Product Attributes" do
+    	f.input :product
+    	f.input :product_attribute_type
+    	f.input :product_attribute_type_variation
+    	f.input :value
+    end
+    f.buttons                         
+  end
+
+
+
 end
