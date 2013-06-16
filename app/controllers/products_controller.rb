@@ -66,9 +66,12 @@ class ProductsController < ApplicationController
     # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Editttion', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
     # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Editttion', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
     # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edition', 'Book Title', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edition', 'Book Title', 'Book Author Last Name', 'Book Subject Primary'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edition','Book Author Last Name', 'Book Subject Primary'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edition','Book Author Last Name'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
+
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'broad', @available_attribute_types, @resource_keywords, @product.title,'adgroup').to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title,'adgroup').to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title,'adgroup').to_a)
+
+
     #next steps, allow for variation okther than 2,for example, 1, 3, 4, and 5.
 
 
@@ -103,7 +106,7 @@ class ProductsController < ApplicationController
    end
   end
 
-  def add_variations_to_excel_array(array_of_keywords_to_use, available_attribute_types, resource_keywords, campaign_name, ad_group_name)
+  def add_variations_to_excel_array(array_of_keywords_to_use, match_type, available_attribute_types, resource_keywords, campaign_name, ad_group_name)
     puts 'METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START '
     puts 'METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START '
 
@@ -123,45 +126,67 @@ class ProductsController < ApplicationController
       resource_keywords[array_of_keywords_to_use[0]].each do |keyword_1| 
         resource_keywords[array_of_keywords_to_use[1]].each do |keyword_2| 
           if array_of_keywords_to_use.size == 2
-            one_excel_row[:keyword] = "#{keyword_1} #{keyword_2}"
-            one_excel_row[:match_type] = 'broad'          
-            adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+            if match_type == 'broad'
+              one_excel_row[:keyword] = "#{keyword_1} #{keyword_2}"
+              one_excel_row[:match_type] = 'broad'          
+              adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+            end
 
-            one_excel_row[:match_type] = 'phrase'
-            one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2}\""
-            adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+            if match_type == 'phrase'
+              one_excel_row[:match_type] = 'phrase'
+              one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2}\""
+              adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+            end
 
-            one_excel_row[:match_type] = 'exact'
-            one_excel_row[:keyword] = "[#{keyword_1} #{keyword_2}]"
-            adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+            if match_type == 'exact'
+              one_excel_row[:match_type] = 'exact'
+              one_excel_row[:keyword] = "[#{keyword_1} #{keyword_2}]"
+              adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+            end
+
           else  #else, means we have more than two keywords and need to create a third array option. 
             resource_keywords[array_of_keywords_to_use[2]].each do |keyword_3| 
               if array_of_keywords_to_use.size == 3
-                one_excel_row[:keyword] = "#{keyword_1} #{keyword_2} #{keyword_3}"
-                one_excel_row[:match_type] = 'broad'          
-                adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                if match_type == 'broad'
+                  one_excel_row[:keyword] = "#{keyword_1} #{keyword_2} #{keyword_3}"
+                  one_excel_row[:match_type] = 'broad'          
+                  adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                end
 
-                one_excel_row[:match_type] = 'phrase'
-                one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3}\""
-                adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                if match_type == 'phrase'
+                  one_excel_row[:match_type] = 'phrase'
+                  one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3}\""
+                  adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                end
 
-                one_excel_row[:match_type] = 'exact'
-                one_excel_row[:keyword] = "[#{keyword_1} #{keyword_2} #{keyword_3}]"
-                adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                if match_type == 'exact'
+                  one_excel_row[:match_type] = 'exact'
+                  one_excel_row[:keyword] = "[#{keyword_1} #{keyword_2} #{keyword_3}]"
+                  adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                end
+
               else  #else, means we have more than three keywords and need to create a fourth array option
                 resource_keywords[array_of_keywords_to_use[3]].each do |keyword_4| 
                   if array_of_keywords_to_use.size == 4
-                    one_excel_row[:keyword] = "#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}"
-                    one_excel_row[:match_type] = 'broad'          
-                    adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
 
-                    one_excel_row[:match_type] = 'phrase'
-                    one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}\""
-                    adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                    if match_type == 'broad'
+                      one_excel_row[:keyword] = "#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}"
+                      one_excel_row[:match_type] = 'broad'          
+                      adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                    end
 
-                    one_excel_row[:match_type] = 'exact'
-                    one_excel_row[:keyword] = "[#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}]"
-                    adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                    if match_type == 'phrase'
+                      one_excel_row[:match_type] = 'phrase'
+                      one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}\""
+                      adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                    end
+
+                    if match_type == 'exact'
+                      one_excel_row[:match_type] = 'exact'
+                      one_excel_row[:keyword] = "[#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}]"
+                      adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
+                    end
+
                   end
                 end
               end
