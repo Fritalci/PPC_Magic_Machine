@@ -39,6 +39,7 @@ class ProductsController < ApplicationController
     @adwords_excel_data[0][:ad_group] = 'Ad Group'
     @adwords_excel_data[0][:keyword] = 'Keyword'
     @adwords_excel_data[0][:match_type] = 'Match Type'
+    @adwords_excel_data[0][:destination_url] = 'Destination Url'
 
     #add_variations_to_excel_array @available_attribute_types, ['Book Title', 'Book Edition']
     #what we ultimately want the method to look similar to.  
@@ -67,9 +68,47 @@ class ProductsController < ApplicationController
     # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Editttion', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
     # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edition', 'Book Title', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
 
-    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'broad', @available_attribute_types, @resource_keywords, @product.title,'adgroup').to_a)
-    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title,'adgroup').to_a)
-    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title,'adgroup').to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Author'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Author'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition','Digital'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition','Book'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Author'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Author'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject','Digital'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition','Subject'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition','Subject'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Subject','Edition'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Author','Subject'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Author','Subject'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Subject','Author'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Subject','Author'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Author','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Author','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Edition','Author'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Edition','Author'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author In Title','Edition','Subject'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author In Title','Edition','Subject'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author In Title','Subject','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author In Title','Subject','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Author In Title','Subject','Edition'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Author In Title','Subject'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Author In Title','Subject'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Subject','Author In Title'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Edition','Subject','Author In Title'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Author In Title','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Author In Title','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Edition','Author In Title'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+    @adwords_excel_data.concat(add_variations_to_excel_array(['Subject','Edition','Author In Title'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
+
 
 
     #next steps, allow for variation okther than 2,for example, 1, 3, 4, and 5.
@@ -106,7 +145,7 @@ class ProductsController < ApplicationController
    end
   end
 
-  def add_variations_to_excel_array(array_of_keywords_to_use, match_type, available_attribute_types, resource_keywords, campaign_name, ad_group_name)
+  def add_variations_to_excel_array(array_of_keywords_to_use, match_type, available_attribute_types, resource_keywords, campaign_name, url)
     puts 'METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START '
     puts 'METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START METHOD START '
 
@@ -120,8 +159,51 @@ class ProductsController < ApplicationController
     if contains_all_attribute_types
       adwords_excel_data = Array.new 
       one_excel_row = Hash.new 
+
+      puts resource_keywords.to_yaml
+      puts ''
+      puts ''
+      puts ''
+      puts resource_keywords.to_yaml
+      puts ''
+      puts ''
+      puts ''
+      puts resource_keywords.to_yaml
+      puts ''
+      puts ''
+      puts ''
+      puts resource_keywords.to_yaml
+      puts ''
+      puts ''
+      puts ''
+
+      ad_group_name = ' '
+      array_of_keywords_to_use.each do |keyword|
+        puts keyword
+        puts resource_keywords[keyword]
+        puts resource_keywords[keyword][0]
+        ad_group_name += resource_keywords[keyword][0] + ' '
+      end
+
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+      puts ad_group_name
+
       one_excel_row[:campaign] = campaign_name
-      one_excel_row[:ad_group] = ad_group_name
+      one_excel_row[:ad_group] = ad_group_name.strip
+      one_excel_row[:destination_url] = url
 
       resource_keywords[array_of_keywords_to_use[0]].each do |keyword_1| 
         resource_keywords[array_of_keywords_to_use[1]].each do |keyword_2| 
