@@ -61,13 +61,6 @@ class ProductsController < ApplicationController
     puts @available_attribute_types.to_yaml
 
 
-
-    # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Title', 'Book Edition'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edittion', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Editttion', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Editttion', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-    # @adwords_excel_data.concat(add_variations_to_excel_array(['Book Edition', 'Book Title', 'Book Title'], @available_attribute_types, @resource_keywords, 'camp','adgroup').to_a)
-
     @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'broad', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
     @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'exact', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
     @adwords_excel_data.concat(add_variations_to_excel_array(['Author','Edition'], 'phrase', @available_attribute_types, @resource_keywords, @product.title, @product.url).to_a)
