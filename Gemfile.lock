@@ -159,7 +159,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   coffee-rails (~> 3.2.1)
-  jquery-rails
+  jquery-rails (< 3.0.0)
   pg
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
