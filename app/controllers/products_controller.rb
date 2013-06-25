@@ -184,7 +184,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }
-      format.csv { send_data to_csv(@adwords_excel_data) }
+      format.csv
       format.xls # { send_data to_csv(@adwords_excel_data,col_sep: "\t") }
    end
   end

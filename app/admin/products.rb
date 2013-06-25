@@ -4,8 +4,8 @@ ActiveAdmin.register Product do
     column :title
     column :url 
     column :isbn 
-    column 'Create Adwords Spreadsheet' do |product|
-    	link_to('Create Spreadsheet',product_path(id: product.id, format:'xls'))
+    column 'Create Adwords CSV' do |product|
+    	link_to('Create CSV',product_path(id: product.id, format:'csv'))
     end
 		column :created_at
 		column :updated_at
