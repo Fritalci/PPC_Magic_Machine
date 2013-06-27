@@ -245,11 +245,12 @@ class ProductsController < ApplicationController
       puts ad_group_name
       puts ad_group_name
 
-      one_excel_row[:campaign] = campaign_name
-      one_excel_row[:ad_group] = ad_group_name.strip
-      one_excel_row[:destination_url] = url
+      one_excel_row[:campaign] = campaign_name.html_safe
+      one_excel_row[:ad_group] = ad_group_name.strip.html_safe
+      one_excel_row[:destination_url] = url.html_safe
 
       resource_keywords[array_of_keywords_to_use[0]].each do |keyword_1| 
+
         resource_keywords[array_of_keywords_to_use[1]].each do |keyword_2| 
           if array_of_keywords_to_use.size == 2
             if match_type == 'broad'
@@ -260,7 +261,7 @@ class ProductsController < ApplicationController
 
             if match_type == 'phrase'
               one_excel_row[:match_type] = 'phrase'
-              one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2}\""
+              one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2}\"".html_safe
               adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
             end
 
@@ -281,7 +282,7 @@ class ProductsController < ApplicationController
 
                 if match_type == 'phrase'
                   one_excel_row[:match_type] = 'phrase'
-                  one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3}\""
+                  one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3}\"".html_safe
                   adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
                 end
 
@@ -303,7 +304,7 @@ class ProductsController < ApplicationController
 
                     if match_type == 'phrase'
                       one_excel_row[:match_type] = 'phrase'
-                      one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}\""
+                      one_excel_row[:keyword] = "\"#{keyword_1} #{keyword_2} #{keyword_3} #{keyword_4}\"".html_safe
                       adwords_excel_data << one_excel_row.clone #if clone method is not used, when hash changes for next value, all values will be the same
                     end
 
