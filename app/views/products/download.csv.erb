@@ -1,0 +1,3 @@
+<% @adwords_excel_data.each do |value| %>
+	<%= value[:campaign] %>,<%= value[:ad_group] %>,<%= value[:keyword] %>,<%= value[:match_type] %>,<%= value[:destination_url] %>
+<% end %>

@@ -5,10 +5,26 @@
   <%= @product.title %>
 </p>
 
-<p>
-  <b>Subject:</b>
-  <%= @product.subject %>
-</p>
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Author in Title</th>
+		<th>Author</th>
+		<th>Subject</th>
+		<th>Edition</th>
+		<th>Book</th>
+		<th>Digital</th>
+	</tr>
+	<tr>		
+		<td><br /><input type="text" /></td>
+		<td><br /><input type="text" /></td>
+		<td><br /><input type="text" /></td>
+		<td><br /><input type="text" /></td>
+		<td><br /><input type="text" /></td>
+		<td><br /><input type="text" /></td>
+		<td><br /><input type="text" /></td>
+	</tr>
+</table>
 
 
 <%= link_to 'Edit', edit_product_path(@product) %> |

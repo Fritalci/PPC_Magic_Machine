@@ -10,6 +10,8 @@ Innovoxppc::Application.routes.draw do
 
   resources :product_attributes
 
+  get '/download/products/:id', to: 'products#download', as: 'download_product'
+
 
   ActiveAdmin.routes(self)
 

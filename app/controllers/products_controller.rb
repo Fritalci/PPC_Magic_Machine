@@ -10,9 +10,55 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show 
+    @product = Product.find(params[:id])
+    @product_attributes = @product.product_attributes
+
+
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+    puts ''
+
+    puts @product.to_yaml 
+
+    puts @product_attributes.to_yaml
+
+
+  end
+
   # GET /products/1
   # GET /products/1.json
-  def show
+  def download 
     @product = Product.find(params[:id])
 
     @available_attribute_types = Array.new
