@@ -3,5 +3,6 @@ class ProductAttributeTypeVariation < ActiveRecord::Base
 
   belongs_to :product_attribute_type
 
+  has_many :product_attributes, :dependent => :nullify
   has_many :product_attribute_type_variation_values, :dependent => :nullify
 end

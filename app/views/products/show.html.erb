@@ -6,27 +6,71 @@
 </p>
 
 <table>
-	<tr>
-		<th>Title</th>
-		<th>Author in Title</th>
-		<th>Author</th>
-		<th>Subject</th>
-		<th>Edition</th>
-		<th>Book</th>
-		<th>Digital</th>
-	</tr>
 	<tr>		
 		<!-- list all existing keywords if they existing --> 
 		<!-- create a view helper method to do this.  Show Value add <br /> -->
 		<!-- Create function for user to add new keywords --> 
 		<!-- Create function for user to create the keyword attribute and product attribute if first keyword --> 
-		<td><br /><input type="text" /></td>
-		<td><br /><input type="text" /></td>
-		<td><br /><input type="text" /></td>
-		<td><br /><input type="text" /></td>
-		<td><br /><input type="text" /></td>
-		<td><br /><input type="text" /></td>
-		<td><br /><input type="text" /></td>
+
+
+		<!-- need to change this below to use productAttributeType instead of ProductAttributeTypeVariation --> 
+		<% @product_attribute_types.each do |product_attribute_type| %> 
+			<% puts 'hi there' %> 
+			<% this_product_attribute = ProductAttribute.find_by_product_id_and_product_attribute_type_id @product.id, product_attribute_type.id %>
+			<% puts '1010101010101010101010101010101010101001010101010101101010010' %>
+			<% puts '1010101010101010101010101010101010101001010101010101101010010' %> 
+			<% puts '1010101010101010101010101010101010101001010101010101101010010' %> 
+			<% puts this_product_attribute.to_yaml %> 
+
+			<% if this_product_attribute.nil? %> 
+				<% this_product_attribute_type_variation_id = 0 %> 
+			<% else %> 
+				<% this_product_attribute_type_variation_id = this_product_attribute.product_attribute_type_variation_id  %> 
+			<% end %> 
+
+			<% #I'M SURE THE STUFF BELOW IS WRONG - GOD DAMMNIT!! %> 
+			<% #I'M HAVING SUCH A GOD DAMN HARD TIME FIGURING OUT THE ID OF THIS PRODUCT ATTRIBUTE TYPE VARIATION ARGGHHH!!!! %> 
+			<% # if @product_attributes.where(product_attribute_type_id => product_attribute_type.id).nil? %>
+				<% #this_product_attribute_type_variation_id = 0 %> 
+			<% #else %> 
+				<% #this_product_attribute_type_variation_id = @product_attributes.where(product_attribute_type_id => product_attribute_type.id).product_attribute_type_variation.id %> 	
+			<% #end %> 
+
+			<% # puts this_product_attribute_type_variation_id %> 
+			<td>
+				<h2><%= product_attribute_type.name %></h2>				
+				<% ###add code tha twill handle the different scenarios for the attribute types differeently %> 
+				<%= form_for(@product_attribute_type_variation_value) do |f| %>
+				  <% if @product_attribute_type_variation_value.errors.any? %>
+				    <div id="error_explanation">				    	
+				      <h2><%= pluralize(@product_attribute_type_variation_value.errors.count, "error") %> prohibited this product_attribute_type_variation_value from being saved:</h2>
+
+				      <ul>
+				      <% @product_attribute_type_variation_value.errors.full_messages.each do |msg| %>
+				        <li><%= msg %></li>
+				      <% end %>
+				      </ul>
+				    </div>
+				  <% end %>
+
+				  <% unless @product_keywords.nil? %>
+					  <% unless @product_keywords[product_attribute_type.name].nil? %> 
+					  	<% @product_keywords[product_attribute_type.name].each do |keyword| %>
+					  		<%= keyword %><br />
+					  	<% end %> 
+					  <% end %> 
+					<% end %> 
+
+				  <div class="field">
+				    <%= f.hidden_field :product_attribute_type_variation_id, :value => this_product_attribute_type_variation_id %> 
+				    <%= f.text_field :value %>
+				  </div>
+				  <div class="actions">
+				    <%= f.submit "Add Keyword" %>
+				  </div>
+				<% end %>
+			</td>
+		<% end %>
 	</tr>
 </table>
 

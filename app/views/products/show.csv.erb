@@ -1,3 +1,30 @@
 <% @adwords_excel_data.each do |value| %>
 	<%= value[:campaign] %>,<%= value[:ad_group] %>,<%= value[:keyword] %>,<%= value[:match_type] %>,<%= value[:destination_url] %>
+	<% puts @product_attribute_type_variations.to_yaml %> 
+	<%= form_for(@product_attribute_type_variation_value) do |f| %>
+	  <% if @product_attribute_type_variation_value.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@product_attribute_type_variation_value.errors.count, "error") %> prohibited this product_attribute_type_variation_value from being saved:</h2>
+
+	      <ul>
+	      <% @product_attribute_type_variation_value.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+
+	  <div class="field">
+	    <%= f.label :product_attribute_type_variation_id %><br />
+	    <%= f.select :product_attribute_type_variation_id, ProductAttributeTypeVariation.all %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :value %><br />
+	    <%= f.text_field :value %>
+	  </div>
+	  <div class="actions">
+	    <%= f.submit %>
+	  </div>
+	<% end %>
+
 <% end %>

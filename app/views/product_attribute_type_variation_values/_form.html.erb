@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :product_attribute_type_variation_id %><br />
-    <%= f.number_field :product_attribute_type_variation_id %>
+    <%= f.select :product_attribute_type_variation_id, ProductAttributeTypeVariation.all %>
   </div>
   <div class="field">
     <%= f.label :value %><br />
