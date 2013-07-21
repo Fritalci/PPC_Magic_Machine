@@ -11,10 +11,25 @@ class ProductAttributesController < InheritedResources::Base
 
     respond_to do |format|
       if @product_attribute.save
-      	if params[:product_page]
-	        format.html { redirect_to @product_attribute, notice: 'Changed Successfully' }
-	    else
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	puts params[:product_page]
+      	if params[:product_page] == 'true'
 	        format.html { redirect_to @product, notice: 'Changed Successfully.' }
+	    else
+	        format.html { redirect_to @product_attribute, notice: 'Changed Successfully' }
 	    end
         format.json { render json: @product_attribute, status: :created, location: @product_attribute }
       else
@@ -33,10 +48,10 @@ class ProductAttributesController < InheritedResources::Base
 
     respond_to do |format|
       if @product_attribute.update_attributes(params[:product_attribute])
-      	if params[:product_page]
-	        format.html { redirect_to @product_attribute, notice: 'Changed Successfully' }
-	    else
+      	if params[:product_page] == 'true'
 	        format.html { redirect_to @product, notice: 'Changed Successfully.' }
+	    else
+	        format.html { redirect_to @product_attribute, notice: 'Changed Successfully' }
 	    end
         format.json { head :no_content }
       else
