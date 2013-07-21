@@ -17,7 +17,11 @@
   </div>
   <div class="field">
     <%= f.label :product_attribute_type_id %><br />
-    <%= f.number_field :product_attribute_type_id %>
+    <%= f.collection_select :product_attribute_type_id, ProductAttributeType.all, :id, :name %> 
+  </div>
+  <div class="field">
+    <%= f.label :product_attribute_type_variation_id %><br />
+    <%= f.collection_select :product_attribute_type_variation_id, ProductAttributeTypeVariation.all, :id, :name %> 
   </div>
   <div class="field">
     <%= f.label :value %><br />

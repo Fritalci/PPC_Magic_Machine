@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :product_attribute_type_id %><br />
-    <%= f.number_field :product_attribute_type_id %>
+    <%= f.collection_select :product_attribute_type_id, ProductAttributeType.all, :id, :name, :prompt => 'Select Product Attribute Type' %>
   </div>
   <div class="field">
     <%= f.label :name %><br />

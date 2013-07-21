@@ -22,6 +22,7 @@ class ProductAttributeTypeVariationValuesController < InheritedResources::Base
   	puts '____________________________________________'
   	puts params.to_yaml
   	puts '____________________________________________'
+    puts params[:product_attribute_type_variation_value][:product_id]
   	puts ''
   	puts ''
   	puts ''
@@ -30,65 +31,32 @@ class ProductAttributeTypeVariationValuesController < InheritedResources::Base
   	puts '' 
   	puts ''
 
-    @product_attribute_type_variation_value = ProductAttributeTypeVariationValue.new(params[:product_attribute_type_variation_value])
+    has_product_id = true
+    has_product_id = false if params[:product_attribute_type_variation_value][:product_id].blank?
+    @product = Product.find params[:product_attribute_type_variation_value][:product_id] if has_product_id
 
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
-    puts @product_attribute_type_variation_value.product_attribute_type_variation_id
+    @product_attribute_type_variation_value = ProductAttributeTypeVariationValue.new value: params[:product_attribute_type_variation_value][:value], product_attribute_type_variation_id: params[:product_attribute_type_variation_value][:product_attribute_type_variation_id]
 
-    puts @product_attribute_type_variation_value.to_yaml
-
-    puts 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm'
-    puts 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm'
-    puts 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm'
-    puts 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm'
-
-    #need to add code to check if @product_attribute_exists 
-    #if exists
-    	#need to add in some code to create the @product_attribute
-  	#end
-
-    #need to add code to check if @product_attribute_type_variation exists 
-    # if exists 
-	    #need to add in some code to create the @product_attribute_type_variation
-	  #end 
-
-	  #need to check if product matches the one being sent for.  
-	  #if it does not, then we need to create it
+    if @product_attribute_type_variation_value.product_attribute_type_variation_id == 0 #need to create a new one
+      @product_attribute_type_variation = ProductAttributeTypeVariation.new product_attribute_type_id: params[:product_attribute_type_variation_value][:product_attribute_type_id], name: @product.title.to_s + ' ' + params[:product_attribute_type_variation_value][:product_attribute_type_name]
+      @product_attribute_type_variation.save
+      @product_attribute = ProductAttribute.new product_id: @product.id, product_attribute_type_id: params[:product_attribute_type_variation_value][:product_attribute_type_id], product_attribute_type_variation_id: @product_attribute_type_variation.id, value: @product.title.to_s + ' ' + params[:product_attribute_type_variation_value][:product_attribute_type_name].to_s
+      @product_attribute.save
+      @product_attribute_type_variation_value.product_attribute_type_variation_id = @product_attribute_type_variation.id
+      @product_attribute_type_variation_value.save
+      puts @product_attribute_type_variation.to_yaml
+      puts @product_attribute.to_yaml
+      puts @product_attribute_type_variation_value.to_yaml
+    end
 
 
     respond_to do |format|
       if @product_attribute_type_variation_value.save
-		    puts @product_attribute_type_variation_value.to_yaml
-
-		    puts ''
-		    puts ''
-		    puts ''
-		    puts ''
-		    puts ''
-		    puts ''
-		    puts '' 
-		    puts '' 
-		    puts '' 
-		    puts '' 
-		    puts ''
-		    puts '12'
-		    puts @product_attribute_type_variation_value.to_yaml 
-		    puts '34'
-		    puts @product_attribute_type_variation_value.product_attribute_type_variation.to_yaml 
-		    puts '56'
-		    puts @product_attribute_type_variation_value.product_attribute_type_variation.product_attributes.to_yaml 
-		    puts '78'
-
-		    @product = @product_attribute_type_variation_value.product_attribute_type_variation.product_attributes.first.product
-        format.html { redirect_to @product  }
+        if has_product_id
+          format.html { redirect_to @product  }
+        else
+          format.html { redirect_to product_attribute_type_variation_path @product_attribute_type_variation_value.product_attribute_type_variation_id  } 
+        end
         # format.html { redirect_to @product_attribute_type_variation_value, notice: 'Product was successfully created.' }	#original default scaffolding value - commented out
         format.json { render json: @product_attribute_type_variation_value, status: :created, location: @product_attribute_type_variation_value }
       else

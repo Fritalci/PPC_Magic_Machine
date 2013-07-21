@@ -1,17 +1,15 @@
 Innovoxppc::Application.routes.draw do
   resources :product_attribute_type_variation_values
 
-
   resources :product_attribute_type_variations
 
-
   resources :product_attribute_types
-
 
   resources :product_attributes
 
   get '/download/products/:id', to: 'products#download', as: 'download_product'
 
+  get '/keywords/:id', to: 'product_attribute_type_variation_values#keywords', as: 'keywords'
 
   ActiveAdmin.routes(self)
 
